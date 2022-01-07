@@ -2,12 +2,7 @@
 
 using namespace std;
 
-//const int clubs = 0;
-//const int diamonds = 1;
-//const int hearts = 2;
-//const int spades = 3;
-
-enum Suit { clubs, diamonds, hearts, spades};
+enum Suit { clubs, diamonds, hearts, spades };
 
 const int jack = 11;
 const int queen = 12;
