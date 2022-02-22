@@ -80,9 +80,166 @@
 //	return 0;
 //}
 
+//#include <iostream>
+//
+//using namespace std;
+//
+//enum Suit { clubs, diamonds, hearts, spades };
+//
+//const int jack = 11;
+//const int queen = 12;
+//const int king = 13;
+//const int ace = 14;
+//
+//class Card
+//{
+//public:
+//	Card()
+//	{
+//
+//	}
+//
+//	Card(int n, Suit s) : number(n), suit(s)
+//	{
+//
+//	}
+//
+//	void display();
+//	bool isEqual(Card);
+//
+//private:
+//	int number;
+//	Suit suit;
+//};
+//
+//int main()
+//{
+//	Card temp, chosen, prize;
+//	int position;
+//
+//	Card card1 = { 7, clubs };
+//	cout << "Card 1: ";
+//	card1.display();
+//	Card card2 = { jack, hearts };
+//	cout << "\nCard 2: ";
+//	card2.display();
+//	Card card3 = { ace, spades };
+//	cout << "\nCard 3: ";
+//	card3.display();
+//
+//	prize = card3;
+//
+//	cout << "\nSwap card 1 and card 3...";
+//	temp = card3;
+//	card3 = card1;
+//	card1 = temp;
+//
+//	cout << "\nSwap card 2 and card 3...";
+//	temp = card3;
+//	card3 = card2;
+//	card2 = temp;
+//
+//	cout << "\nSwap card 1 and card 2...";
+//	temp = card2;
+//	card2 = card1;
+//	card1 = temp;
+//
+//	cout << "\nWhat position (1,2 or 3) is ";
+//	prize.display();
+//	cout << "?";
+//	cin >> position;
+//
+//	switch (position)
+//	{
+//	case 1:
+//	{
+//		chosen = card1;
+//		break;
+//	}
+//	case 2:
+//	{
+//		chosen = card2;
+//		break;
+//	}
+//	case 3:
+//	{
+//		chosen = card3;
+//		break;
+//	}
+//	}
+//
+//	if (chosen.isEqual(prize))
+//	{
+//		cout << "Right! You won!\n";
+//	}
+//	else
+//	{
+//		cout << "Wrong! You lost(\n";
+//	}
+//
+//	cout << "You have chosen a card ";
+//	chosen.display();
+//	cout << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+//
+//void Card::display()
+//{
+//	if (number >= 2 && number <= 10)
+//	{
+//		cout << number;
+//	}
+//	else
+//	{
+//		switch (number)
+//		{
+//		case jack:
+//			cout << "Jack ";
+//			break;
+//		case queen:
+//			cout << "Queen ";
+//			break;
+//		case king:
+//			cout << "King ";
+//			break;
+//		case ace:
+//			cout << "Ace ";
+//			break;
+//		}
+//	}
+//
+//	switch (suit)
+//	{
+//	case clubs:
+//		cout << " clubs ";
+//		break;
+//	case diamonds:
+//		cout << " diamonds ";
+//		break;
+//	case hearts:
+//		cout << " hearts ";
+//		break;
+//	case spades:
+//		cout << " spades ";
+//		break;
+//	}
+//}
+//
+//bool Card::isEqual(Card c2)
+//{
+//	return (number == c2.number && suit == c2.suit) ? true : false;
+//}
+
+
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
+
+const int DECK_SIZE = 52;
 
 enum Suit { clubs, diamonds, hearts, spades };
 
@@ -99,13 +256,12 @@ public:
 
 	}
 
-	Card(int n, Suit s) : number(n), suit(s)
+	void set(int n, Suit s)
 	{
-
+		suit = s;
+		number = n;
 	}
-
 	void display();
-	bool isEqual(Card);
 
 private:
 	int number;
@@ -114,72 +270,50 @@ private:
 
 int main()
 {
-	Card temp, chosen, prize;
-	int position;
+	srand(time(NULL));
 
-	Card card1 = { 7, clubs };
-	cout << "Card 1: ";
-	card1.display();
-	Card card2 = { jack, hearts };
-	cout << "\nCard 2: ";
-	card2.display();
-	Card card3 = { ace, spades };
-	cout << "\nCard 3: ";
-	card3.display();
+	Card deck[DECK_SIZE];
 
-	prize = card3;
-
-	cout << "\nSwap card 1 and card 3...";
-	temp = card3;
-	card3 = card1;
-	card1 = temp;
-
-	cout << "\nSwap card 2 and card 3...";
-	temp = card3;
-	card3 = card2;
-	card2 = temp;
-
-	cout << "\nSwap card 1 and card 2...";
-	temp = card2;
-	card2 = card1;
-	card1 = temp;
-
-	cout << "\nWhat position (1,2 or 3) is ";
-	prize.display();
-	cout << "?";
-	cin >> position;
-
-	switch (position)
+	for (size_t i = 0; i < DECK_SIZE; i++)
 	{
-	case 1:
-	{
-		chosen = card1;
-		break;
-	}
-	case 2:
-	{
-		chosen = card2;
-		break;
-	}
-	case 3:
-	{
-		chosen = card3;
-		break;
-	}
+		int num = (i % 13) + 2;
+		Suit su = Suit(i / 13);
+		deck[i].set(num, su);
 	}
 
-	if (chosen.isEqual(prize))
+	cout << "Source deck: " << endl;
+
+	for (size_t i = 0; i < DECK_SIZE; i++)
 	{
-		cout << "Right! You won!\n";
-	}
-	else
-	{
-		cout << "Wrong! You lost(\n";
+		deck[i].display();
+		cout << " ";
+
+		if (!((i + 1) % 13))
+		{
+			cout << endl;
+		}
 	}
 
-	cout << "You have chosen a card ";
-	chosen.display();
-	cout << endl;
+	for (size_t i = 0; i < DECK_SIZE; i++)
+	{
+		int k = rand() % 52;
+		Card temp = deck[i];
+		deck[i] = deck[k];
+		deck[k] = temp;
+	}
+
+	cout << "\nShuffled deck: " << endl;
+
+	for (size_t i = 0; i < DECK_SIZE; i++)
+	{
+		deck[i].display();
+		cout << " ";
+
+		if (!((i + 1) % 13))
+		{
+			cout << endl;
+		}
+	}
 
 	system("pause");
 	return 0;
@@ -196,16 +330,16 @@ void Card::display()
 		switch (number)
 		{
 		case jack:
-			cout << "Jack ";
+			cout << 'J';
 			break;
 		case queen:
-			cout << "Queen ";
+			cout << 'Q';
 			break;
 		case king:
-			cout << "King ";
+			cout << 'K';
 			break;
 		case ace:
-			cout << "Ace ";
+			cout << 'A';
 			break;
 		}
 	}
@@ -213,21 +347,16 @@ void Card::display()
 	switch (suit)
 	{
 	case clubs:
-		cout << " clubs ";
+		cout << static_cast<char>(5);
 		break;
 	case diamonds:
-		cout << " diamonds ";
+		cout << static_cast<char>(4);
 		break;
 	case hearts:
-		cout << " hearts ";
+		cout << static_cast<char>(3);
 		break;
 	case spades:
-		cout << " spades ";
+		cout << static_cast<char>(6);
 		break;
 	}
-}
-
-bool Card::isEqual(Card c2)
-{
-	return (number == c2.number && suit == c2.suit) ? true : false;
 }
